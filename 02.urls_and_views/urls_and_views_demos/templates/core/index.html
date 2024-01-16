@@ -5,7 +5,15 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Works from template</h1>
+<h1>{{ title }}</h1>
+<h2>Non existent {{ does_not_exist }}</h2>
+<ul>
+    <li>Method: {{ method }}</li>
+    <li>Path {{ path }}</li>
+    <li>User : {{ user }}</li>
+    <li>User from request {{ request.user }}</li>
+</ul>
+
 
 </body>
 </html>
