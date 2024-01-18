@@ -1,0 +1,16 @@
+h1{
+    color:deeppink;
+    font-size: 24px;
+}
+
+    body {
+        padding: 50px;
+    }
+
+    .young {
+        color: green;
+    }
+
+    .old {
+        color: red;
+    }

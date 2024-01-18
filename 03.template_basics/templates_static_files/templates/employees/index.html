@@ -1,18 +1,7 @@
-<style>
-    body {
-        padding: 50px;
-    }
+{% load static %}
 
-    .young {
-        color: green;
-    }
-
-    .old {
-        color: red;
-    }
-</style>
-
-
+<link rel="stylesheet" href="{% static 'css/site.css' %}">
+<img height="250" src="{% static 'imgs/R.jpg' %}" alt="">
 <h1>{{ title }}</h1>
 <ul>
     {% for age in ages %}
@@ -105,6 +94,11 @@
 {{ csrf_token }}
 
 {% csrf_token %}
+<hr>
 {%  comment %}
     multiline comment
 {% endcomment %}
+{% lorem %}
+<hr>
+{% lorem 3 %}
+{#{% lorem 3 'b' %}#}
