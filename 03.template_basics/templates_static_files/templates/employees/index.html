@@ -1,0 +1,41 @@
+<h1>{{ title }}</h1>
+<hr>
+<h2> Dict</h2>
+<h3>{{ person.first_name }}</h3>
+<h3>{{ person.last_name }}</h3>
+<p>{{ person.items }}</p>
+<h3>{{ employees.0 }}</h3>
+<hr>
+<h2>Class</h2>
+<h3>{{ person_obj.first_name }}</h3>
+<h3>{{ person_obj.last_name }}</h3>
+<h3>{{ person_obj.full_name }}</h3>
+<hr>
+<h1>Filters</h1>
+<p>
+    {{ person_obj.full_name }}
+</p>
+<p>
+    {{ person_obj.age }}
+</p>
+<p>
+    {{ person_obj.age|default:'Unknown' }}
+</p>
+<p>
+<p>
+    {{ person_obj.full_name | truncatechars:3 }}
+</p>
+
+<p>
+    {{ person_obj.full_name | truncatechars:5 }}
+</p>
+<p>
+    {{ names|join:', ' }}
+</p>
+<p>
+    {{ date }}
+    {{ date|date:'D d M Y' }}
+</p>
+
+
+{#<h4>{{ employees.index }}</h4>#}
