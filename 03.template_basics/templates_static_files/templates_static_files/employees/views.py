@@ -1,4 +1,5 @@
 import datetime
+import random
 
 from django.shortcuts import render
 
@@ -17,6 +18,7 @@ def index(request):
         "new.employee": 'John Doe',  # invalid
         "new employee": 'John Doe',  # invalid
         "names": ["Gosho", "Ivan", "Pesho"],  # valid
+        'ages': [random.randrange(1, 100) for _ in range(10)],
 
         "person": {
             "first_name": "John",
@@ -25,9 +27,19 @@ def index(request):
         },
         'person_obj': Person('John', 'Doe'),
         'date': datetime.date.today(),
+        'get_params': request.GET,
 
     }
     return render(
         request,
         'employees/index.html',
         context)
+def employee_details(request, pk):
+    context={
+        'pk':pk,
+    }
+    return render(
+        request,
+        "employees/employee_details.html",
+        context
+    )

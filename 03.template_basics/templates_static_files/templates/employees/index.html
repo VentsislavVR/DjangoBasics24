@@ -1,4 +1,27 @@
+<style>
+    body {
+        padding: 50px;
+    }
+
+    .young {
+        color: green;
+    }
+
+    .old {
+        color: red;
+    }
+</style>
+
+
 <h1>{{ title }}</h1>
+<ul>
+    {% for age in ages %}
+        <li>
+            <a href="{% url 'index' %}/?age={{ age }}">{{ age }}</a>
+        </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'employee_details' pk=7 %}">Go to employee</a>
 <hr>
 <h2> Dict</h2>
 <h3>{{ person.first_name }}</h3>
@@ -37,5 +60,51 @@
     {{ date|date:'D d M Y' }}
 </p>
 
+<hr>
+<h1>Tags</h1>
+<h2>If Elif Else</h2>
+{% if ages %}
+    <p>{{ ages|join:', ' }}</p>
+{% else %}
+    <p>No ages</p>
+{% endif %}
 
-{#<h4>{{ employees.index }}</h4>#}
+<h2>for , for-empty</h2>
+{% for name in names %}
+    <p>{{ name }}</p>
+{% empty %}
+    <p>No names</p>
+{% endfor %}
+<ul>
+    {% for age in ages %}
+        {% if age < 20 %}
+            <li class="young">
+                <strong>{{ age }}</strong>
+            </li>
+        {% else %}
+            <li class="old">
+                {{ age }}
+            </li>
+        {% endif %}
+
+    {% endfor %}
+</ul>
+
+<ul>
+    {% for age in ages %}
+        <li>
+            <strong>{{ age }}</strong>
+        </li>
+    {% empty %}
+        <li>No ages</li>
+
+    {% endfor %}
+</ul>
+<h1>CSRF Token</h1>
+
+{{ csrf_token }}
+
+{% csrf_token %}
+{%  comment %}
+    multiline comment
+{% endcomment %}
