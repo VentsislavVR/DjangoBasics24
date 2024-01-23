@@ -6,7 +6,8 @@ def non_empty_spaces(value):
     if ' ' in value:
         raise ValidationError('Spaces are not allowed.')
 
-
+class Department(models.Model):
+    name = models.CharField(max_length=100)
 
 # Create your models here.
 class Employee(models.Model):
@@ -31,6 +32,10 @@ class Employee(models.Model):
     )
     role = models.IntegerField(
         choices=ROLES,
+    )
+    department = models.ForeignKey(
+        Department,on_delete=models.DO_NOTHING,
+        null=True,
     )
     @property
     def full_name(self):

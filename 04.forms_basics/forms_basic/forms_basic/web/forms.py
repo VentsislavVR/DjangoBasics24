@@ -59,35 +59,41 @@ class DemoForm(forms.Form):
         required=False,
     )
 
-
-class EmployeeForm(forms.ModelForm):
-    department = forms.CharField(
-        max_length=35,
+class EmployeeNormalForm(forms.Form):
+    first_name = forms.CharField(
+        max_length=Employee.MAX_FIRST_NAME_LENGTH,
+        required=True,
     )
+    last_name = forms.CharField(
+        max_length=35,
+        required=True,
+    )
+    role = forms.IntegerField(
+        widget=forms.RadioSelect(
+            choices=Employee.ROLES,
 
-
+        ),
+    )
+class EmployeeForm(forms.ModelForm):
+    # department = forms.CharField(
+    #
+    # )
     class Meta:
         model = Employee
         fields = '__all__'
-
 
         labels = {
 
             'first_name': 'First Name:',
             'last_name': 'Last Name:',
         }
-
+        #
         widgets = {
             'role': forms.RadioSelect(
                 # attrs={
-                #     'disabled': 'disabled',
+                #     'disabled': False,
                 #
                 # }
             ),
 
         }
-
-
-
-
-

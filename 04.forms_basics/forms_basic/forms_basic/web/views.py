@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from forms_basic.web.forms import DemoForm, EmployeeForm
+from forms_basic.web.forms import DemoForm, EmployeeForm, EmployeeNormalForm
 from forms_basic.web.models import Employee
 
 
@@ -32,16 +32,17 @@ def update_employee(request, pk):
 
 
 def index_models(request):
-    form = EmployeeForm(
-        request.POST or None,
-    )
+
+    form = EmployeeForm(request.POST or None)
+
     if request.method == 'POST':
         if form.is_valid():
             form.save()
             return redirect('index_models')
 
     context = {
-        'form': form,
+        # 'normal_employee_form': EmployeeNormalForm(),
+        'employee_form': form,
         'employees': Employee.objects.all(),
     }
     return render(
