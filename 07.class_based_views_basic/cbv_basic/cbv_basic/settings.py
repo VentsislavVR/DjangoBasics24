@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'cbv_basic.web',
+    'cbv_basic.custom_cbv',
 ]
 
 MIDDLEWARE = [
