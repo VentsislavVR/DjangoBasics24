@@ -1,0 +1,12 @@
+{% load static %}
+<nav>
+    <ul>
+        <li class="img"><img src="{% static 'images/dollar.png' %}"></li>
+        <li><a href="{% url 'index' %}">Expenses Tracker</a></li>
+        {% if profile %}
+        <li class="right"><a href="{% url 'details profile' %}">Profile</a></li>
+            {% endif %}
+        
+        
+    </ul>
+</nav>

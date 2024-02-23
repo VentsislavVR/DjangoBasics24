@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+	    <div class="body">
+        
+<h1>Delete Expense</h1>
+<div class="form">
+    <form method="POST">
+        {{form.as_p}}
+        {% csrf_token %}
+
+        <input type="submit" value="Delete">
+    </form>
+</div>
+
+    </div>
+{% endblock %}
+

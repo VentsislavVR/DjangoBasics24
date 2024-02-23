@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+   
+        
+{% block content %}
+	
+ <div class="body">
+<h1>Edit Expense</h1>
+<div class="form">
+    <form method="POST" action="{% url 'edit expense' pk=expense.pk %}">
+         {{ form.as_p }}
+        {% csrf_token %}
+
+        <input type="submit" value="Edit">
+   
+        <input type="submit" value="Edit">
+       
+    </form>
+</div>
+
+    </div>
+{% endblock %}

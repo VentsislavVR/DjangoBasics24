@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+	    <div class="body">
+        
+<h1>Enter your new data</h1>
+<div class="form">
+    <form method="POST" action="{% url 'edit profile' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+    </form>
+</div>
+
+    </div>
+{% endblock %}
+
