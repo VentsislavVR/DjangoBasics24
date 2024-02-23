@@ -14,7 +14,7 @@ from exam3.web.models import Expense
 class IndexView(views.CreateView):
     template_name = 'common/home-no-profile.html'
     model = Profile
-    fields = ('budget','first_name', 'last_name',)
+    fields = ('budget', 'first_name', 'last_name',)
 
     def get_template_names(self):
         if Profile.objects.exists():
@@ -27,9 +27,11 @@ class IndexView(views.CreateView):
         expenses_total = Expense.objects.aggregate(total=Sum('price'))['total'] or 0
         context['expenses'] = Expense.objects.all()
 
+        context['profile'] = profile
+
         if profile:
             original_budget = profile.budget + expenses_total
-            remaining_budget = profile.budget - expenses_total
+            remaining_budget = original_budget - expenses_total  # Adjust remaining budget calculation
             context['original_budget'] = original_budget
             context['remaining_budget'] = remaining_budget
 
@@ -37,6 +39,8 @@ class IndexView(views.CreateView):
 
     def get_success_url(self):
         return reverse_lazy('index')
+
+
 
 class CreateExpenseView(views.CreateView):
     model = Expense
@@ -46,26 +50,34 @@ class CreateExpenseView(views.CreateView):
     def get_success_url(self):
         return reverse_lazy('index')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['profile'] = Profile.objects.first()
+        context['expenses'] = Expense.objects.all()
+        context['remaining_budget'] = context['profile'].remaining_budget()
+        return context
+
     def form_valid(self, form):
-        # Get the profile instance
         profile = Profile.objects.first()
 
-        # Check if there is enough remaining budget
-        expense = form.instance
-        total_expenses = profile.expense_set.exclude(pk=expense.pk).aggregate(total=Sum('price'))['total'] or 0
-        remaining_budget = profile.budget - total_expenses
+        expense = form.instance  # Use form.instance directly
+        remaining_budget = profile.remaining_budget()
+
         if remaining_budget >= expense.price:
-            # Deduct the expense amount from the remaining budget
-            profile.budget -= expense.price
+            # Set the profile field of the expense
+            expense.profile = profile
+
+            profile.budget -= expense.price  # Remove .price here
             profile.save()
 
-            # Set the expense's profile
-            expense.profile = profile
             return super().form_valid(form)
         else:
             # If there's not enough budget, display an error message
             messages.error(self.request, "Insufficient remaining budget.")
-            return super().form_invalid(form)
+            return redirect('index')
+
+
+
 
 
 class UpdateExpenseView(views.UpdateView):

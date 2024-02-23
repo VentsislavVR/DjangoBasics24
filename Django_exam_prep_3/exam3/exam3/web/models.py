@@ -18,3 +18,5 @@ class Expense(models.Model):
     price = models.FloatField()
 
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+
+

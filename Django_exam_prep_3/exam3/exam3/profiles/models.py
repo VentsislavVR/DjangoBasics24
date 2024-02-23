@@ -15,3 +15,7 @@ class Profile(models.Model):
     budget = models.PositiveIntegerField(
         default=0
     )
+
+    def remaining_budget(self):
+        total_expenses = self.expense_set.aggregate(total=models.Sum('price'))['total'] or 0
+        return self.budget - total_expenses
