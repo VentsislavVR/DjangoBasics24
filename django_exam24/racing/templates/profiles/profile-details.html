@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- profile details section -->
+    <section id="car-details">
+        <h1>Profile Details</h1>
+        <div class="info-section">
+            <div class="car-header">
+                <!-- default profile image (if the user does NOT have any)-->
+                {% if not object.profile_picture %}
+                    <img
+                            class="car-img"
+                            src="{% static 'images/default-profile.png' %}"
+                            alt="profile-image"
+                    />
+                {% else %}
+                    <!-- if the user has a profile image -->
+                    <img class="car-img" src="{{ object.profile_picture }}" alt="profile-image"/>
+                {% endif %}
+                {% if object.first_name and object.last_name %}
+                    <h1>{{ object.first_name }} {{ object.last_name }}</h1>
+                {% elif object.first_name %}
+                    <h1>{{ object.first_name }}</h1>
+                {% elif user.last_name %}
+                    <h1>{{ object.last_name }}</h1>
+                {% endif %}
+                <!-- user username -->
+                <p class="description">Username: {{ object.username }}</p>
+                <!-- user email -->
+                <p class="description">Email: {{ object.email }}</p>
+                <!-- user age -->
+                <p class="description">Age: {{ object.age }}</p>
+                <!-- total price of all cars -->
+                {% if total_price_of_cars %}
+                    <p class="description">Total price: {{ total_price_of_cars|floatformat:3 }}</p>
+                {% else %}
+                    <p class="description">Total price: 0</p>
+                {% endif %}
+                <!-- Edit/Delete buttons -->
+                <div class="buttons">
+                    <a href="{% url 'profile update' %}" class="edit-button">Edit</a>
+                    <a href="{% url 'profile delete' %}" class="delete-button">Delete</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
